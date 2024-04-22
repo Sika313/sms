@@ -51,6 +51,63 @@ defmodule LvDemoWeb.LiveHelpers do
     </div>
     """
   end
+def show_modal(assigns) do
+    assigns = assign_new(assigns, :return_to, fn -> nil end)
+
+    ~H"""
+    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+      <div
+        id="modal-content"
+        class="phx-modal-content fade-in-scale"
+        phx-click-away={JS.dispatch("click", to: "#close")}
+        phx-window-keydown={JS.dispatch("click", to: "#close")}
+        phx-key="escape"
+      >
+        <%= if @return_to do %>
+          <%= live_patch "✖",
+            to: @return_to,
+            id: "close",
+            class: "phx-modal-close",
+            phx_click: hide_modal()
+          %>
+        <% else %>
+          <a id="close" phx-click="show_modal_close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+        <% end %>
+
+        <%= render_slot(@inner_block) %>
+      </div>
+    </div>
+    """
+  end
+def edit_modal(assigns) do
+    assigns = assign_new(assigns, :return_to, fn -> nil end)
+
+    ~H"""
+    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+      <div
+        id="modal-content"
+        class="phx-modal-content fade-in-scale"
+        phx-click-away={JS.dispatch("click", to: "#close")}
+        phx-window-keydown={JS.dispatch("click", to: "#close")}
+        phx-key="escape"
+      >
+        <%= if @return_to do %>
+          <%= live_patch "✖",
+            to: @return_to,
+            id: "close",
+            class: "phx-modal-close",
+            phx_click: hide_modal()
+          %>
+        <% else %>
+          <a id="close" phx-click="edit_modal_close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+        <% end %>
+
+        <%= render_slot(@inner_block) %>
+      </div>
+    </div>
+    """
+  end
+
 def user_modal(assigns) do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
@@ -71,7 +128,7 @@ def user_modal(assigns) do
             phx_click: hide_modal()
           %>
         <% else %>
-          <a id="close" href={"/view"} class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+          <a id="close" phx-click="modal-close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
         <% end %>
 
         <%= render_slot(@inner_block) %>
@@ -79,6 +136,8 @@ def user_modal(assigns) do
     </div>
     """
   end
+
+
 
   defp hide_modal(js \\ %JS{}) do
     js

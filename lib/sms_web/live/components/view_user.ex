@@ -1,16 +1,23 @@
 defmodule SmsWeb.ViewUser do
-    use Phoenix.LiveComponent
+    use SmsWeb, :live_component
     alias Sms.Accounts
-  def view_user(assigns) do
-    id = String.to_integer(assigns.id)
-    user = Accounts.get_user!(id)
-  ~H"""
-    <p> User ID: <%= user.id %> </p>
-    <p> First name: <%= user.fname %> </p>
-    <p> Last name: <%= user.lname %> </p>
-    <p> Gender: <%= user.sex %> </p>
-    <p> Phone number: <%= user.phone %> </p>
 
+  def mount(_, _, socket) do
+    {:ok, socket}
+  end
+
+  def render(assigns) do
+
+  user = Accounts.get_user!(assigns.id)
+  ~H"""
+    <div class="flex justify-center">
+      <div class="flex flex-col">
+        <span>Firstname: <%= user.fname %></span>
+        <span>Lastname: <%= user.lname %></span>
+        <span>Sex: <%= user.sex %></span>
+        <span>Phone number: <%= user.phone %></span>
+      </div>
+    </div>
   """
   end
 end

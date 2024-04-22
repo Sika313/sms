@@ -1,20 +1,23 @@
 defmodule SmsWeb.ViewLive do
   use SmsWeb, :live_view
-  import SmsWeb.ViewUser
-  import SmsWeb.Edit
+  alias SmsWeb.ViewUser
+  alias SmsWeb.Edit
   import SmsWeb.Delete
   import LvDemoWeb.LiveHelpers
   import Phoenix.LiveView
   alias Sms.Accounts
 
   def mount(_params, _session, socket) do
-    socket = assign(socket, show: false, edit: false, delete: false, id: "1")
+    socket = assign(socket,
+    show: false, edit: false, delete: false, id: "1",
+    users: Accounts.list_users())
     {:ok, socket}
   end
 
   def render(assigns) do
     users = Accounts.list_users()
     ~H"""
+
     <h1 class="my-20">THIS IS THE USERS'S PAGE</h1>
     <table class="w-[40vw] border-2 border-gray-400 m-10 ml-20">
     <tr>
@@ -33,18 +36,18 @@ defmodule SmsWeb.ViewLive do
     <% end %>
     </table>
     <%= if @show do %>
-      <.user_modal>
-      <.view_user id={@id} />
-      </.user_modal>
+      <.show_modal>
+        <%= live_component  ViewUser, id: @id %>
+      </.show_modal>
     <% end %>
 
     <%= if @edit do %>
-      <.user_modal>
-      <.edit id={@id} />
-      </.user_modal>
+      <.edit_modal>
+        <%= live_component  Edit, id: @id %>
+      </.edit_modal>
     <% end %>
 
-  <%= if @delete do %>
+    <%= if @delete do %>
       <.user_modal>
       <.delete id={@id} />
       </.user_modal>
@@ -57,9 +60,17 @@ defmodule SmsWeb.ViewLive do
     socket = assign(socket, show: true, id: u_id["value"])
     {:noreply, socket}
   end
+  def handle_event("show_modal_close", _, socket) do
+    socket = assign(socket, show: false)
+    {:noreply, socket}
+  end
 
   def handle_event("edit", u_id, socket) do
     socket = assign(socket, edit: true, id: u_id["value"])
+    {:noreply, socket}
+  end
+def handle_event("edit_modal_close", _, socket) do
+    socket = assign(socket, edit: false)
     {:noreply, socket}
   end
 

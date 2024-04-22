@@ -24,6 +24,7 @@ defmodule SmsWeb.Router do
     live "/view", ViewLive
     post "/edit", PageController, :edit
     post "/delete", PageController, :delete
+    post "login", PageController, :login
   end
 
   # Other scopes may use custom stacks.

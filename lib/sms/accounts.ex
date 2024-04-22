@@ -23,6 +23,14 @@ defmodule Sms.Accounts do
     |>where(status: "active")
     |>Repo.all()
   end
+  def get_users_by_name(name) do
+    IO.inspect(name)
+    # query = from u in Users, where: status == 'active'
+    User
+    |>where(fname: ^name)
+    |>Repo.all()
+  end
+
 
   @doc """
   Gets a single user.

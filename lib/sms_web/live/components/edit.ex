@@ -36,12 +36,8 @@ defmodule SmsWeb.Edit do
                             class="block border border-grey-light w-full p-3 rounded mb-4"
                             name="phone"
                             placeholder={user.phone} />
-                        <input
-                            type="password"
-                            class="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="password"
-                            placeholder={user.password} />
-                            <input type="hidden" name="_csrf_token" id="csrf" value={ Plug.CSRFProtection.get_csrf_token() } />
+
+                           <input type="hidden" name="_csrf_token" id="csrf" value={ Plug.CSRFProtection.get_csrf_token() } />
                             <input type="hidden" name="id" value={user.id} />
                         <button
                             type="submit"

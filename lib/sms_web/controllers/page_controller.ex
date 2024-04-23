@@ -50,8 +50,11 @@ defmodule SmsWeb.PageController do
         for user <- users do
        new_password = params["fname"] <> params["password"]
        if Bcrypt.verify_pass(new_password, user.password) do
-        
-        render(conn, "loggedin.html", user: user)
+          if user.account_type == "ordinary" do        
+            render(conn, "ordinary.html")
+          else
+            redirect(conn, to: "/admin", user: user)
+          end
        else
         conn
         |> put_flash(:error, "INVALID LOGIN CREDENTIALS.")
@@ -59,7 +62,6 @@ defmodule SmsWeb.PageController do
       end
       end
     end
-    render(conn, "loggedin.html")
   end
 
 end

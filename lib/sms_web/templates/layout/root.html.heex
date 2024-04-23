@@ -10,27 +10,16 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <div class="flex w-[30vw] justify-around bg-orange-500">
+  <div class="flex items-center bg-black text-white">
+    <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Failed to load image" class="w-24 h-20" />
+    <h1 class="ml-96 text-2xl">Student management system</h1>
+  </div>
+   <div class="flex  justify-around bg-orange-500">
     <a href="/">Home</a>
     <a href="/signup">Signup</a>
     <a href="/login">Login</a>
-    <a href="/view">View users</a>
     </div>
+
     <%= @inner_content %>
   </body>
 </html>

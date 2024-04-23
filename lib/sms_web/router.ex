@@ -20,11 +20,14 @@ defmodule SmsWeb.Router do
     get "/", PageController, :index
     live "/signup", SignupLive
     post "/save", PageController, :save
-    live "/login", LoginLive
-    live "/view", ViewLive
+    live "/login", MyLoginLive
+    live "/view", MyViewLive
     post "/edit", PageController, :edit
     post "/delete", PageController, :delete
     post "login", PageController, :login
+    #live "admin", MyViewLive
+    live "/admin", AdminLive
+    live "/ordinary", OrdinaryLive
   end
 
   # Other scopes may use custom stacks.

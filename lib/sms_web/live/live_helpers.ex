@@ -51,7 +51,7 @@ defmodule LvDemoWeb.LiveHelpers do
     </div>
     """
   end
-def show_modal(assigns) do
+def login_modal(assigns) do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
     ~H"""
@@ -71,7 +71,7 @@ def show_modal(assigns) do
             phx_click: hide_modal()
           %>
         <% else %>
-          <a id="close" phx-click="show_modal_close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+          <a id="close" phx-click="show_modal_close" href={"/"} class="phx-modal-close" phx-click={hide_modal()}>✖</a>
         <% end %>
 
         <%= render_slot(@inner_block) %>
@@ -99,7 +99,7 @@ def edit_modal(assigns) do
             phx_click: hide_modal()
           %>
         <% else %>
-          <a id="close" phx-click="edit_modal_close" href="#" class="phx-modal-close" phx-click={hide_modal()}>✖</a>
+          <a id="close" phx-click="edit_modal_close" href="#" class="phx-modal-close">✖</a>
         <% end %>
 
         <%= render_slot(@inner_block) %>
